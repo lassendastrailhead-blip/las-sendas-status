@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Las Sendas Community Status</title>
+
+<style>
+:root {
+  --text: #30332f;
+  --muted: #666b65;
+  --line: #d9ddd7;
+  --soft-line: #e8eae7;
+
+  --green: #586b52;
+  --green-dark: #43523f;
+
+  --open: #60765b;
+  --limited: #a9822e;
+  --repair: #b56835;
+  --closed: #a34d48;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+}
+
+body {
+  font-family: Avenir, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+}
+
+#community-status {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 10px 0 50px;
+}
+
+
+/* INTRO */
+
+.status-header {
+  max-width: 800px;
+  padding: 0 0 34px;
+}
+
+.intro {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.overall-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 20px;
+  color: var(--green-dark);
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.overall-dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+
+/* SECTIONS */
+
+.section {
+  padding: 30px 0 40px;
+  border-top: 1px solid var(--line);
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 25px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.active-count {
+  padding-bottom: 2px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* STATUS LABELS */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.status::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-open {
+  color: var(--open);
+}
+
+.status-limited {
+  color: var(--limited);
+}
+
+.status-repair {
+  color: var(--repair);
+}
+
+.status-closed {
+  color: var(--closed);
+}
+
+.status-unknown {
+  color: #777b77;
+}
+
+
+/* ACTIVE UPDATES */
+
+.active-item {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(300px, 1.8fr);
+  gap: 45px;
+  padding: 23px 2px;
+  border-top: 1px solid var(--soft-line);
+}
+
+.active-item:last-child {
+  border-bottom: 1px solid var(--soft-line);
+}
+
+.active-name {
+  margin-bottom: 6px;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.active-category {
+  color: #858a84;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.active-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.active-update {
+  max-width: 680px;
+  margin: 10px 0 0;
+  color: #555a54;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+
+/* AMENITY LIST */
+
+.status-list {
+  width: 100%;
+  border-bottom: 1px solid var(--soft-line);
+}
+
+.list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  min-height: 58px;
+  padding: 14px 2px;
+  border-top: 1px solid var(--soft-line);
+}
+
+.list-name {
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+
+/* ENCLAVE SEARCH */
+
+.search-wrap {
+  width: 100%;
+  max-width: 440px;
+  margin: 2px 0 28px;
+}
+
+.search-box {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  width: 17px;
+  height: 17px;
+  transform: translateY(-50%);
+  fill: #7c817c;
+  pointer-events: none;
+}
+
+#gate-search {
+  display: block;
+  width: 100%;
+  height: 45px;
+  padding: 5px 5px 5px 29px;
+  border: 0;
+  border-bottom: 1px solid #aeb4ae;
+  border-radius: 0;
+  outline: none;
+  color: var(--text);
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+#gate-search::placeholder {
+  color: #90958f;
+}
+
+#gate-search:focus {
+  border-bottom-color: var(--green-dark);
+}
+
+
+/* ENCLAVE LIST */
+
+.gate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 55px;
+}
+
+.gate-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 54px;
+  padding: 13px 2px;
+  border-top: 1px solid var(--soft-line);
+}
+
+.gate-name {
+  min-width: 0;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.no-results,
+.loading {
+  padding: 22px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+
+/* ERROR */
+
+.error {
+  margin: 0 0 34px;
+  padding: 17px 0;
+  border-top: 1px solid var(--closed);
+  border-bottom: 1px solid var(--closed);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.error strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+
+/* FOOTER */
+
+.status-footer {
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.status-footer p {
+  max-width: 720px;
+  margin: 0;
+  color: #7a7f79;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+
+/* TABLET */
+
+@media (max-width: 800px) {
+
+  #community-status {
+    padding: 5px 0 45px;
+  }
+
+  .status-header {
+    padding-bottom: 28px;
+  }
+
+  .section {
+    padding: 27px 0 35px;
+  }
+
+  .active-item {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .gate-grid {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 520px) {
+
+  .intro {
+    font-size: 15px;
+  }
+
+  h2 {
+    font-size: 23px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .list-row,
+  .gate-row {
+    gap: 15px;
+  }
+
+  .status {
+    font-size: 12px;
+  }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<main id="community-status">
+
+
+  <!-- INTRO -->
+
+  <header class="status-header">
+
+    <p class="intro">
+      Check the current operating status of Las Sendas amenities and enclave gates.
+      Closures, repairs and access changes will appear below as conditions change.
+    </p>
+
+    <div id="overall-status" class="overall-status">
+      <span class="overall-dot"></span>
+      <span id="overall-text">Loading community status...</span>
+    </div>
+
+  </header>
+
+
+  <!-- ERROR MESSAGE -->
+
+  <div id="error" class="error" hidden>
+    <strong>Status information is temporarily unavailable.</strong>
+    <span>Please check back shortly.</span>
+  </div>
+
+
+  <!-- ACTIVE UPDATES -->
+
+  <section id="active-section" class="section" hidden>
+
+    <div class="section-heading">
+
+      <h2>Active Updates</h2>
+
+      <div id="active-count" class="active-count"></div>
+
+    </div>
+
+    <div id="active-list"></div>
+
+  </section>
+
+
+  <!-- AMENITIES -->
+
+  <section class="section">
+
+    <div class="section-heading">
+      <h2>Amenities</h2>
+    </div>
+
+    <div id="amenities-list" class="status-list">
+      <div class="loading">Loading amenities...</div>
+    </div>
+
+  </section>
+
+
+  <!-- ENCLAVE GATES -->
+
+  <section class="section">
+
+    <div class="section-heading">
+      <h2>Enclave Gates</h2>
+    </div>
+
+    <div class="search-wrap">
+
+      <div class="search-box">
+
+        <svg
+          class="search-icon"
+          viewBox="0 0 24 24"
+          aria-hidden="true">
+
+          <path d="M10.5 5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11zm0-2a7.5 7.5 0 1 1-4.73 13.32L2.3 19.8a1 1 0 0 1-1.42-1.42l3.48-3.47A7.5 7.5 0 0 1 10.5 3z"></path>
+
+        </svg>
+
+        <input
+          type="text"
+          id="gate-search"
+          placeholder="Search your enclave..."
+          autocomplete="off">
+
+      </div>
+
+    </div>
+
+    <div id="gates-list" class="gate-grid">
+      <div class="loading">Loading enclave gates...</div>
+    </div>
+
+    <div id="no-results" class="no-results" hidden>
+      No enclave gates match your search.
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer class="status-footer">
+
+    <p>
+      Status information is updated as conditions change.
+      For additional assistance, contact the Las Sendas Community Association.
+    </p>
+
+  </footer>
+
+</main>
+
+
+<script>
+
+(function () {
+
+  const SHEET_URL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vS_eGp793AyUDjb9kh05rS-THTYKWmlG2n01iqn_UPF1jcNwMM6ReXZo1yeV-m6gLe-tUPuTonBRHPw/pub?gid=0&single=true&output=csv";
+
+
+  const amenitiesList =
+    document.getElementById("amenities-list");
+
+  const gatesList =
+    document.getElementById("gates-list");
+
+  const activeSection =
+    document.getElementById("active-section");
+
+  const activeList =
+    document.getElementById("active-list");
+
+  const activeCount =
+    document.getElementById("active-count");
+
+  const overallText =
+    document.getElementById("overall-text");
+
+  const overallStatus =
+    document.getElementById("overall-status");
+
+  const searchInput =
+    document.getElementById("gate-search");
+
+  const noResults =
+    document.getElementById("no-results");
+
+  const errorBox =
+    document.getElementById("error");
+
+
+  /* CSV PARSER */
+
+  function parseCSV(text) {
+
+    const rows = [];
+
+    let row = [];
+    let value = "";
+    let insideQuotes = false;
+
+    for (let i = 0; i < text.length; i++) {
+
+      const char = text[i];
+      const next = text[i + 1];
+
+      if (
+        char === '"' &&
+        insideQuotes &&
+        next === '"'
+      ) {
+
+        value += '"';
+        i++;
+
+      }
+
+      else if (char === '"') {
+
+        insideQuotes = !insideQuotes;
+
+      }
+
+      else if (
+        char === "," &&
+        !insideQuotes
+      ) {
+
+        row.push(value);
+        value = "";
+
+      }
+
+      else if (
+        (char === "\n" || char === "\r") &&
+        !insideQuotes
+      ) {
+
+        if (
+          char === "\r" &&
+          next === "\n"
+        ) {
+          i++;
+        }
+
+        row.push(value);
+
+        if (
+          row.some(
+            cell =>
+              String(cell).trim() !== ""
+          )
+        ) {
+          rows.push(row);
+        }
+
+        row = [];
+        value = "";
+
+      }
+
+      else {
+
+        value += char;
+
+      }
+    }
+
+    row.push(value);
+
+    if (
+      row.some(
+        cell =>
+          String(cell).trim() !== ""
+      )
+    ) {
+      rows.push(row);
+    }
+
+    return rows;
+  }
+
+
+  /* SAFE TEXT */
+
+  function escapeHTML(value) {
+
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+
+  /* STATUS SETTINGS */
+
+  function statusInfo(status) {
+
+    const clean =
+      String(status || "")
+        .trim()
+        .toLowerCase();
+
+    if (clean === "open") {
+
+      return {
+        key: "open",
+        label: "Open"
+      };
+
+    }
+
+    if (clean === "limited access") {
+
+      return {
+        key: "limited",
+        label: "Limited Access"
+      };
+
+    }
+
+    if (clean === "repair in progress") {
+
+      return {
+        key: "repair",
+        label: "Repair in Progress"
+      };
+
+    }
+
+    if (clean === "closed") {
+
+      return {
+        key: "closed",
+        label: "Closed"
+      };
+
+    }
+
+    return {
+      key: "unknown",
+      label: status || "Status Unavailable"
+    };
+
+  }
+
+
+  function statusHTML(status) {
+
+    const info =
+      statusInfo(status);
+
+    return `
+      <span class="status status-${info.key}">
+        ${escapeHTML(info.label)}
+      </span>
+    `;
+  }
+
+
+  /* TURN SHEET INTO DATA */
+
+  function buildData(rows) {
+
+    if (rows.length < 2) {
+      return [];
+    }
+
+    const headers =
+      rows[0].map(
+        header =>
+          String(header)
+            .trim()
+            .toLowerCase()
+      );
+
+    const location =
+      headers.indexOf("location");
+
+    const category =
+      headers.indexOf("category");
+
+    const status =
+      headers.indexOf("status");
+
+    const update =
+      headers.indexOf("public update");
+
+
+    if (
+      location === -1 ||
+      category === -1 ||
+      status === -1
+    ) {
+
+      throw new Error(
+        "Required spreadsheet columns are missing."
+      );
+
+    }
+
+
+    return rows
+      .slice(1)
+      .map(row => ({
+
+        location:
+          String(row[location] || "").trim(),
+
+        category:
+          String(row[category] || "").trim(),
+
+        status:
+          String(row[status] || "").trim(),
+
+        update:
+          update > -1
+            ? String(row[update] || "").trim()
+            : ""
+
+      }))
+      .filter(item => item.location);
+
+  }
+
+
+  /* AMENITIES */
+
+  function renderAmenities(items) {
+
+    amenitiesList.innerHTML =
+      items.map(item => `
+
+        <div class="list-row">
+
+          <div class="list-name">
+            ${escapeHTML(item.location)}
+          </div>
+
+          ${statusHTML(item.status)}
+
+        </div>
+
+      `).join("");
+
+  }
+
+
+  /* ENCLAVE GATES */
+
+  function renderGates(items) {
+
+    gatesList.innerHTML =
+      items.map(item => `
+
+        <div
+          class="gate-row"
+          data-name="${escapeHTML(
+            item.location.toLowerCase()
+          )}">
+
+          <div class="gate-name">
+            ${escapeHTML(item.location)}
+          </div>
+
+          ${statusHTML(item.status)}
+
+        </div>
+
+      `).join("");
+
+  }
+
+
+  /* ACTIVE UPDATES */
+
+  function renderActive(items) {
+
+    const active =
+      items.filter(
+        item =>
+          statusInfo(item.status).key !== "open"
+      );
+
+
+    if (!active.length) {
+
+      activeSection.hidden = true;
+
+      overallText.textContent =
+        "All Systems Operational";
+
+      overallStatus.style.color =
+        "var(--green-dark)";
+
+      return;
+
+    }
+
+
+    activeSection.hidden = false;
+
+
+    const wording =
+      active.length === 1
+        ? "1 Active Update"
+        : `${active.length} Active Updates`;
+
+
+    activeCount.textContent =
+      wording;
+
+    overallText.textContent =
+      wording;
+
+
+    if (
+      active.some(
+        item =>
+          statusInfo(item.status).key === "closed"
+      )
+    ) {
+
+      overallStatus.style.color =
+        "var(--closed)";
+
+    }
+
+    else if (
+      active.some(
+        item =>
+          statusInfo(item.status).key === "repair"
+      )
+    ) {
+
+      overallStatus.style.color =
+        "var(--repair)";
+
+    }
+
+    else {
+
+      overallStatus.style.color =
+        "var(--limited)";
+
+    }
+
+
+    activeList.innerHTML =
+      active.map(item => {
+
+        const update =
+          item.update
+            ? `
+              <p class="active-update">
+                ${escapeHTML(item.update)}
+              </p>
+            `
+            : "";
+
+
+        return `
+
+          <div class="active-item">
+
+            <div>
+
+              <div class="active-name">
+                ${escapeHTML(item.location)}
+              </div>
+
+              <div class="active-category">
+                ${escapeHTML(item.category)}
+              </div>
+
+            </div>
+
+
+            <div class="active-right">
+
+              ${statusHTML(item.status)}
+
+              ${update}
+
+            </div>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+  }
+
+
+  /* SEARCH */
+
+  searchInput.addEventListener(
+    "input",
+    function () {
+
+      const query =
+        this.value
+          .trim()
+          .toLowerCase();
+
+      const rows =
+        gatesList.querySelectorAll(
+          ".gate-row"
+        );
+
+      let visible = 0;
+
+
+      rows.forEach(row => {
+
+        const match =
+          (row.dataset.name || "")
+            .includes(query);
+
+        row.style.display =
+          match
+            ? "flex"
+            : "none";
+
+        if (match) {
+          visible++;
+        }
+
+      });
+
+
+      noResults.hidden =
+        visible !== 0;
+
+    }
+  );
+
+
+  /* LOAD GOOGLE SHEET */
+
+  fetch(
+    SHEET_URL,
+    {
+      cache: "no-store"
+    }
+  )
+
+  .then(response => {
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Could not load Google Sheet."
+      );
+
+    }
+
+    return response.text();
+
+  })
+
+  .then(csv => {
+
+    const data =
+      buildData(
+        parseCSV(csv)
+      );
+
+
+    const amenities =
+      data.filter(
+        item =>
+          item.category
+            .toLowerCase()
+            .includes("amenity")
+      );
+
+
+    const gates =
+      data.filter(
+        item =>
+          item.category
+            .toLowerCase()
+            .includes("enclave")
+      );
+
+
+    renderActive(data);
+
+    renderAmenities(
+      amenities
+    );
+
+    renderGates(
+      gates
+    );
+
+  })
+
+  .catch(error => {
+
+    console.error(error);
+
+    overallText.textContent =
+      "Status Temporarily Unavailable";
+
+    overallStatus.style.color =
+      "var(--closed)";
+
+    activeSection.hidden =
+      true;
+
+    amenitiesList.innerHTML =
+      "";
+
+    gatesList.innerHTML =
+      "";
+
+    errorBox.hidden =
+      false;
+
+  });
+
+})();
+
+</script>
+
+</body>
+</html>
