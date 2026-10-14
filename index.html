@@ -16,6 +16,7 @@
   --green: #586b52;
   --green-dark: #43523f;
   --open: #60765b;
+  --upcoming: #3b7197;
   --repair: #b56835;
   --closed: #a34d48;
 }
@@ -540,22 +541,26 @@ h2 {
   }
 
   function statusInfo(status) {
-    const clean = String(status || "").trim().toLowerCase();
+  const clean = String(status || "").trim().toLowerCase();
 
-    if (clean === "open") {
-      return { key: "open", label: "Open" };
-    }
-
-    if (clean === "closed") {
-      return { key: "closed", label: "Closed" };
-    }
-
-    if (clean === "repair in progress") {
-      return { key: "repair", label: "Repair in Progress" };
-    }
-
-    return { key: "unknown", label: "Status Unavailable" };
+  if (clean === "open") {
+    return { key: "open", label: "Open" };
   }
+
+  if (clean === "closed") {
+    return { key: "closed", label: "Closed" };
+  }
+
+  if (clean === "repair in progress") {
+    return { key: "repair", label: "Repair in Progress" };
+  }
+
+  if (clean === "upcoming maintenance") {
+    return { key: "upcoming", label: "Upcoming Maintenance" };
+  }
+
+  return { key: "unknown", label: "Status Unavailable" };
+}
 
   function statusHTML(status) {
     const info = statusInfo(status);
