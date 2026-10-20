@@ -5,6 +5,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Las Sendas Community Status</title>
+  
+/* Collapsible Amenities and Enclave Gates */
+.section-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.section-toggle h2 {
+  margin: 0;
+}
+
+.section-toggle-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.section-toggle-label {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.section-toggle .chevron {
+  transition: transform .2s ease;
+}
+
+.section-toggle[aria-expanded="true"] .chevron {
+  transform: rotate(225deg);
+}
+
+.section-toggle:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 5px;
+}
+
+.collapsible-content {
+  padding-top: 24px;
+}
+
+@media (max-width: 520px) {
+  .section-toggle-label {
+    font-size: 12px;
+  }
+  .section-toggle-right {
+    gap: 10px;
+  }
+}
+
 <style>
 :root {
   --text: #30332f;
