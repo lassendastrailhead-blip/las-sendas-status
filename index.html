@@ -5,12 +5,205 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Las Sendas Community Status</title>
-  
-/* Collapsible Amenities and Enclave Gates */
+
+<style>
+:root {
+  --text: #30332f;
+  --muted: #666b65;
+  --line: #d9ddd7;
+  --soft-line: #e8eae7;
+  --green: #586b52;
+  --green-dark: #43523f;
+  --open: #60765b;
+  --upcoming: #3b7197;
+  --repair: #b56835;
+  --closed: #a34d48;
+  --reported: #777b77;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+
+body {
+  font-family: Avenir, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+}
+
+#community-status {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 10px 0 50px;
+}
+
+.status-header {
+  max-width: 800px;
+  padding-bottom: 34px;
+}
+
+.intro {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.report-issue {
+  margin: 15px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.report-issue a {
+  color: var(--green-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.report-issue a:hover {
+  color: var(--open);
+}
+
+.overall-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 20px;
+  color: var(--green-dark);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.overall-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.section {
+  padding: 30px 0 40px;
+  border-top: 1px solid var(--line);
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.active-count {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-open {
+  color: var(--open);
+}
+
+.status-upcoming {
+  color: var(--upcoming);
+}
+
+.status-repair {
+  color: var(--repair);
+}
+
+.status-closed {
+  color: var(--closed);
+}
+
+.status-reported {
+  color: var(--reported);
+}
+
+.status-unknown {
+  color: #777b77;
+}
+
+.active-item {
+  display: grid;
+  grid-template-columns: minmax(180px, .8fr) minmax(300px, 1.8fr);
+  gap: 45px;
+  padding: 23px 2px;
+  border-top: 1px solid var(--soft-line);
+}
+
+.active-item:last-child {
+  border-bottom: 1px solid var(--soft-line);
+}
+
+.active-name {
+  margin-bottom: 6px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.active-category {
+  color: #858a84;
+  font-size: 12px;
+}
+
+.active-update {
+  max-width: 680px;
+  margin: 10px 0 0;
+  color: #555a54;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.reported-intro {
+  margin: -4px 0 20px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* MAIN COLLAPSIBLE SECTIONS */
+
 .section-toggle {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
   width: 100%;
   padding: 0;
   border: 0;
@@ -21,8 +214,13 @@
   cursor: pointer;
 }
 
-.section-toggle h2 {
-  margin: 0;
+.section-toggle:hover .section-toggle-label {
+  color: var(--green-dark);
+}
+
+.section-toggle:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 5px;
 }
 
 .section-toggle-right {
@@ -45,176 +243,21 @@
   transform: rotate(225deg);
 }
 
-.section-toggle:focus-visible {
-  outline: 2px solid var(--green);
-  outline-offset: 5px;
-}
-
 .collapsible-content {
   padding-top: 24px;
 }
 
-@media (max-width: 520px) {
-  .section-toggle-label {
-    font-size: 12px;
-  }
-  .section-toggle-right {
-    gap: 10px;
-  }
-}
+/* AMENITIES AND GATES */
 
-<style>
-:root {
-  --text: #30332f;
-  --muted: #666b65;
-  --line: #d9ddd7;
-  --soft-line: #e8eae7;
-  --green: #586b52;
-  --green-dark: #43523f;
-  --open: #60765b;
-  --upcoming: #3b7197;
-  --repair: #b56835;
-  --closed: #a34d48;
-  --reported: #777b77;
-}
-* { box-sizing: border-box; }
-html, body {
-  margin: 0;
-  padding: 0;
-  background: #fff;
-}
-body {
-  font-family: Avenir, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
-  color: var(--text);
-}
-#community-status {
-  width: 100%;
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 10px 0 50px;
-}
-.status-header {
-  max-width: 800px;
-  padding-bottom: 34px;
-}
-.intro {
-  max-width: 760px;
-  margin: 0;
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 1.7;
-}
-.report-issue {
-  margin: 15px 0 0;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.6;
-}
-.report-issue a {
-  color: var(--green-dark);
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.report-issue a:hover { color: var(--open); }
-.overall-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  margin-top: 20px;
-  color: var(--green-dark);
-  font-size: 14px;
-  font-weight: 700;
-}
-.overall-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: currentColor;
-}
-.section {
-  padding: 30px 0 40px;
-  border-top: 1px solid var(--line);
-}
-.section-heading {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 25px;
-  margin-bottom: 20px;
-}
-h2 {
-  margin: 0;
-  font-size: 25px;
-  font-weight: 600;
-  letter-spacing: -0.3px;
-}
-.active-count {
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 600;
-}
-.status {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-  font-size: 13px;
-  font-weight: 700;
-}
-.status::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  flex: 0 0 8px;
-  border-radius: 50%;
-  background: currentColor;
-}
-.status-open { color: var(--open); }
-.status-upcoming { color: var(--upcoming); }
-.status-repair { color: var(--repair); }
-.status-closed { color: var(--closed); }
-.status-reported { color: var(--reported); }
-.status-unknown { color: #777b77; }
-.active-item {
-  display: grid;
-  grid-template-columns: minmax(180px, .8fr) minmax(300px, 1.8fr);
-  gap: 45px;
-  padding: 23px 2px;
-  border-top: 1px solid var(--soft-line);
-}
-.active-item:last-child {
-  border-bottom: 1px solid var(--soft-line);
-}
-.active-name {
-  margin-bottom: 6px;
-  font-size: 16px;
-  font-weight: 700;
-}
-.active-category {
-  color: #858a84;
-  font-size: 12px;
-}
-.active-update {
-  max-width: 680px;
-  margin: 10px 0 0;
-  color: #555a54;
-  font-size: 14px;
-  line-height: 1.65;
-}
-.reported-intro {
-  margin: -4px 0 20px;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.6;
-}
 .status-list {
   width: 100%;
   border-bottom: 1px solid var(--soft-line);
 }
+
 .location-entry {
   border-top: 1px solid var(--soft-line);
 }
+
 .location-toggle {
   display: flex;
   width: 100%;
@@ -230,62 +273,80 @@ h2 {
   text-align: left;
   cursor: pointer;
 }
-.location-toggle:hover { background: #f8f9f7; }
+
+.location-toggle:hover {
+  background: #f8f9f7;
+}
+
 .location-toggle:focus-visible {
   outline: 2px solid var(--green);
   outline-offset: -2px;
 }
+
 .location-name {
   font-size: 15px;
   font-weight: 500;
   line-height: 1.4;
 }
+
 .location-right {
   display: flex;
   align-items: center;
   gap: 20px;
 }
+
 .chevron {
   display: inline-block;
   width: 9px;
   height: 9px;
+  flex: 0 0 9px;
   border-right: 1.5px solid var(--muted);
   border-bottom: 1.5px solid var(--muted);
   transform: rotate(45deg);
   transition: transform .2s ease;
 }
+
 .location-toggle[aria-expanded="true"] .chevron {
   transform: rotate(225deg);
 }
+
+/* STATUS HISTORY */
+
 .history-panel {
   padding: 8px 18px 24px;
   background: #f8f9f7;
 }
+
 .history-title {
   margin: 8px 0 15px;
   font-size: 13px;
   font-weight: 700;
 }
+
 .history-item {
   padding: 13px 0;
   border-top: 1px solid var(--soft-line);
 }
+
 .history-date {
   margin-bottom: 7px;
   color: var(--muted);
   font-size: 12px;
 }
+
 .history-update {
   margin: 8px 0 0;
   color: #555a54;
   font-size: 13px;
   line-height: 1.6;
 }
+
 .history-empty {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.6;
 }
+
 .history-more {
   margin-top: 15px;
   padding: 7px 0;
@@ -298,11 +359,15 @@ h2 {
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* GATE SEARCH */
+
 .search-wrap {
   width: 100%;
   max-width: 440px;
   margin: 2px 0 28px;
 }
+
 #gate-search {
   display: block;
   width: 100%;
@@ -317,19 +382,24 @@ h2 {
   font-family: inherit;
   font-size: 14px;
 }
+
 #gate-search:focus {
   border-bottom-color: var(--green-dark);
 }
+
 .gate-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 55px;
 }
-.no-results, .loading {
+
+.no-results,
+.loading {
   padding: 22px 0;
   color: var(--muted);
   font-size: 14px;
 }
+
 .error {
   margin: 0 0 34px;
   padding: 17px 0;
@@ -337,10 +407,12 @@ h2 {
   border-bottom: 1px solid var(--closed);
   font-size: 14px;
 }
+
 .status-footer {
   padding-top: 24px;
   border-top: 1px solid var(--line);
 }
+
 .status-footer p {
   max-width: 720px;
   margin: 0;
@@ -348,24 +420,52 @@ h2 {
   font-size: 12px;
   line-height: 1.6;
 }
-[hidden] { display: none !important; }
+
+[hidden] {
+  display: none !important;
+}
+
 @media (max-width: 800px) {
   .active-item {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-  .gate-grid { grid-template-columns: 1fr; }
+
+  .gate-grid {
+    grid-template-columns: 1fr;
+  }
 }
+
 @media (max-width: 520px) {
-  .intro { font-size: 15px; }
-  h2 { font-size: 23px; }
+  .intro {
+    font-size: 15px;
+  }
+
+  h2 {
+    font-size: 23px;
+  }
+
   .section-heading {
     align-items: flex-start;
     flex-direction: column;
     gap: 6px;
   }
-  .location-right { gap: 12px; }
-  .status { font-size: 12px; }
+
+  .section-toggle-label {
+    font-size: 12px;
+  }
+
+  .section-toggle-right {
+    gap: 10px;
+  }
+
+  .location-right {
+    gap: 12px;
+  }
+
+  .status {
+    font-size: 12px;
+  }
 }
 </style>
 </head>
@@ -393,6 +493,8 @@ h2 {
     </div>
   </header>
 
+  <!-- ACTIVE UPDATES -->
+
   <div id="error" class="error" hidden>
     <strong>Status information is temporarily unavailable.</strong>
     Please check back shortly.
@@ -406,41 +508,92 @@ h2 {
     <div id="active-list"></div>
   </section>
 
+  <!-- REPORTED ISSUES -->
+
   <section id="reported-section" class="section" hidden>
     <div class="section-heading">
       <h2>Reported Issues</h2>
       <div id="reported-count" class="active-count"></div>
     </div>
+
     <p class="reported-intro">
       These concerns have been reported to management and are being reviewed.
     </p>
+
     <div id="reported-list"></div>
   </section>
 
+  <!-- COLLAPSIBLE AMENITIES -->
+
   <section class="section">
-    <div class="section-heading">
+    <button
+      type="button"
+      class="section-toggle"
+      aria-expanded="false"
+      aria-controls="amenities-content"
+    >
       <h2>Amenities</h2>
-    </div>
-    <div id="amenities-list" class="status-list">
-      <div class="loading">Loading amenities...</div>
+
+      <span class="section-toggle-right">
+        <span class="section-toggle-label">
+          View Status &amp; History
+        </span>
+        <span class="chevron" aria-hidden="true"></span>
+      </span>
+    </button>
+
+    <div
+      id="amenities-content"
+      class="collapsible-content"
+      hidden
+    >
+      <div id="amenities-list" class="status-list">
+        <div class="loading">Loading amenities...</div>
+      </div>
     </div>
   </section>
 
+  <!-- COLLAPSIBLE ENCLAVE GATES -->
+
   <section class="section">
-    <div class="section-heading">
+    <button
+      type="button"
+      class="section-toggle"
+      aria-expanded="false"
+      aria-controls="gates-content"
+    >
       <h2>Enclave Gates</h2>
-    </div>
-    <div class="search-wrap">
-      <input type="search" id="gate-search"
-        placeholder="Search your enclave..."
-        autocomplete="off"
-        aria-label="Search enclave gates">
-    </div>
-    <div id="gates-list" class="gate-grid">
-      <div class="loading">Loading enclave gates...</div>
-    </div>
-    <div id="no-results" class="no-results" hidden>
-      No enclave gates match your search.
+
+      <span class="section-toggle-right">
+        <span class="section-toggle-label">
+          View Status &amp; History
+        </span>
+        <span class="chevron" aria-hidden="true"></span>
+      </span>
+    </button>
+
+    <div
+      id="gates-content"
+      class="collapsible-content"
+      hidden
+    >
+      <div class="search-wrap">
+        <input
+          type="search"
+          id="gate-search"
+          placeholder="Search your enclave..."
+          autocomplete="off"
+          aria-label="Search enclave gates"
+        >
+      </div>
+
+      <div id="gates-list" class="gate-grid">
+        <div class="loading">Loading enclave gates...</div>
+      </div>
+
+      <div id="no-results" class="no-results" hidden>
+        No enclave gates match your search.
+      </div>
     </div>
   </section>
 
@@ -455,6 +608,7 @@ h2 {
 
 <script>
 (function () {
+
   const TRACK_URL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vS_eGp793AyUDjb9kh05rS-THTYKWmlG2n01iqn_UPF1jcNwMM6ReXZo1yeV-m6gLe-tUPuTonBRHPw/pub?gid=0&single=true&output=csv";
 
@@ -463,20 +617,26 @@ h2 {
 
   const amenitiesList = document.getElementById("amenities-list");
   const gatesList = document.getElementById("gates-list");
+
   const activeSection = document.getElementById("active-section");
   const activeList = document.getElementById("active-list");
   const activeCount = document.getElementById("active-count");
+
   const reportedSection = document.getElementById("reported-section");
   const reportedList = document.getElementById("reported-list");
   const reportedCount = document.getElementById("reported-count");
+
   const overallText = document.getElementById("overall-text");
   const overallStatus = document.getElementById("overall-status");
+
   const searchInput = document.getElementById("gate-search");
   const noResults = document.getElementById("no-results");
   const errorBox = document.getElementById("error");
 
   let historyData = [];
   let historyAvailable = false;
+
+  /* CSV PARSING */
 
   function parseCSV(text) {
     const rows = [];
@@ -500,10 +660,13 @@ h2 {
         value = "";
       } else if ((char === "\n" || char === "\r") && !quoted) {
         if (char === "\r" && next === "\n") i++;
+
         row.push(value);
+
         if (row.some(cell => String(cell).trim())) {
           rows.push(row);
         }
+
         row = [];
         value = "";
       } else {
@@ -512,9 +675,11 @@ h2 {
     }
 
     row.push(value);
+
     if (row.some(cell => String(cell).trim())) {
       rows.push(row);
     }
+
     return rows;
   }
 
@@ -527,21 +692,27 @@ h2 {
       .replace(/'/g, "&#039;");
   }
 
+  /* STATUS DEFINITIONS */
+
   function statusInfo(status) {
     const clean = String(status || "").trim().toLowerCase();
 
     if (clean === "open") {
       return { key: "open", label: "Open" };
     }
+
     if (clean === "closed") {
       return { key: "closed", label: "Closed" };
     }
+
     if (clean === "repair in progress") {
       return { key: "repair", label: "Repair in Progress" };
     }
+
     if (clean === "upcoming maintenance") {
       return { key: "upcoming", label: "Upcoming Maintenance" };
     }
+
     if (clean === "issue reported") {
       return { key: "reported", label: "Issue Reported" };
     }
@@ -551,6 +722,7 @@ h2 {
 
   function statusHTML(status) {
     const info = statusInfo(status);
+
     return '<span class="status status-' + info.key + '">' +
       escapeHTML(info.label) + '</span>';
   }
@@ -559,10 +731,13 @@ h2 {
     return String(location || "").trim().toLowerCase();
   }
 
+  /* TRACK DATA */
+
   function buildData(rows) {
     if (!rows.length) throw new Error("TRACK is empty.");
 
     const headers = rows[0].map(x => String(x).trim().toLowerCase());
+
     const locationIndex = headers.indexOf("location");
     const categoryIndex = headers.indexOf("category");
     const statusIndex = headers.indexOf("status");
@@ -582,20 +757,28 @@ h2 {
     })).filter(item => item.location);
   }
 
+  /* STATUS HISTORY */
+
   function parseTimestamp(value) {
     const text = String(value || "").trim();
+
     if (!text) return 0;
 
     const nativeDate = Date.parse(text);
-    if (!Number.isNaN(nativeDate)) return nativeDate;
+
+    if (!Number.isNaN(nativeDate)) {
+      return nativeDate;
+    }
 
     const match = text.match(
       /^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)?$/i
     );
+
     if (!match) return 0;
 
     let hour = Number(match[4]);
     const meridiem = (match[7] || "").toUpperCase();
+
     if (meridiem === "PM" && hour < 12) hour += 12;
     if (meridiem === "AM" && hour === 12) hour = 0;
 
@@ -613,6 +796,7 @@ h2 {
     if (!rows.length) throw new Error("History CSV is empty.");
 
     const headers = rows[0].map(x => String(x).trim().toLowerCase());
+
     const timestampIndex = headers.indexOf("timestamp");
     const locationIndex = headers.indexOf("location");
     const statusIndex = headers.indexOf("status");
@@ -640,6 +824,7 @@ h2 {
 
   function formatDate(timestamp) {
     const text = String(timestamp || "").trim();
+
     if (!text) return "Date unavailable";
 
     const match = text.match(
@@ -652,17 +837,22 @@ h2 {
         Number(match[1]) - 1,
         Number(match[2])
       );
+
       const dateText = date.toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
         year: "numeric"
       });
+
       return dateText + " at " + match[4] + ":" + match[5] +
         (match[7] ? " " + match[7].toUpperCase() : "");
     }
 
     const date = new Date(text);
-    if (Number.isNaN(date.getTime())) return text;
+
+    if (Number.isNaN(date.getTime())) {
+      return text;
+    }
 
     return date.toLocaleString("en-US", {
       timeZone: "America/Phoenix",
@@ -712,17 +902,28 @@ h2 {
       entries + moreButton;
   }
 
+  /* LOCATION ROWS */
+
   function locationHTML(item) {
     return `
       <div class="location-entry"
            data-name="${escapeHTML(normalizeLocation(item.location))}">
-        <button type="button" class="location-toggle" aria-expanded="false">
-          <span class="location-name">${escapeHTML(item.location)}</span>
+
+        <button
+          type="button"
+          class="location-toggle"
+          aria-expanded="false"
+        >
+          <span class="location-name">
+            ${escapeHTML(item.location)}
+          </span>
+
           <span class="location-right">
             ${statusHTML(item.status)}
             <span class="chevron" aria-hidden="true"></span>
           </span>
         </button>
+
         <div class="history-panel" hidden>
           ${historyHTML(item.location)}
         </div>
@@ -740,8 +941,11 @@ h2 {
     gatesList.innerHTML = items.length
       ? items.map(locationHTML).join("")
       : '<div class="no-results">No enclave gates are listed.</div>';
+
     filterGates();
   }
+
+  /* ACTIVE UPDATES AND REPORTED ISSUES */
 
   function updateItemHTML(item) {
     const update = item.update
@@ -751,8 +955,12 @@ h2 {
     return `
       <div class="active-item">
         <div>
-          <div class="active-name">${escapeHTML(item.location)}</div>
-          <div class="active-category">${escapeHTML(item.category)}</div>
+          <div class="active-name">
+            ${escapeHTML(item.location)}
+          </div>
+          <div class="active-category">
+            ${escapeHTML(item.category)}
+          </div>
         </div>
         <div>
           ${statusHTML(item.status)}
@@ -771,6 +979,7 @@ h2 {
 
     const active = items.filter(item => {
       const key = statusInfo(item.status).key;
+
       return key === "closed" ||
         key === "repair" ||
         key === "upcoming";
@@ -784,16 +993,20 @@ h2 {
     );
 
     reportedSection.hidden = reported.length === 0;
+
     reportedCount.textContent = reported.length === 1
       ? "1 report"
       : reported.length + " reports";
+
     reportedList.innerHTML = reported.map(updateItemHTML).join("");
 
     if (!active.length) {
       activeSection.hidden = true;
+
       overallText.textContent = reported.length
         ? "No Active Closures or Repairs"
         : "All Systems Operational";
+
       overallStatus.style.color = "var(--green-dark)";
       return;
     }
@@ -818,14 +1031,19 @@ h2 {
     activeList.innerHTML = active.map(updateItemHTML).join("");
   }
 
+  /* ENCLAVE GATE SEARCH */
+
   function filterGates() {
     const query = searchInput.value.trim().toLowerCase();
     const entries = gatesList.querySelectorAll(".location-entry");
+
     let visible = 0;
 
     entries.forEach(entry => {
       const match = (entry.dataset.name || "").includes(query);
+
       entry.hidden = !match;
+
       if (match) visible++;
     });
 
@@ -833,6 +1051,8 @@ h2 {
   }
 
   searchInput.addEventListener("input", filterGates);
+
+  /* INDIVIDUAL STATUS HISTORY DROPDOWNS */
 
   document.addEventListener("click", function (event) {
     const toggle = event.target.closest(".location-toggle");
@@ -859,15 +1079,48 @@ h2 {
       });
 
       more.setAttribute("aria-expanded", String(!expanded));
+
       more.textContent = expanded
         ? "View older updates (" + older.length + ")"
         : "Show fewer updates";
     }
   });
 
+  /* MAIN AMENITIES AND GATES DROPDOWNS */
+
+  document.querySelectorAll(".section-toggle").forEach(button => {
+    button.addEventListener("click", function () {
+      const content = document.getElementById(
+        button.getAttribute("aria-controls")
+      );
+
+      const isExpanded =
+        button.getAttribute("aria-expanded") === "true";
+
+      button.setAttribute(
+        "aria-expanded",
+        String(!isExpanded)
+      );
+
+      content.hidden = isExpanded;
+
+      const label = button.querySelector(".section-toggle-label");
+
+      label.textContent = isExpanded
+        ? "View Status & History"
+        : "Hide Status & History";
+    });
+  });
+
+  /* LOAD GOOGLE SHEETS */
+
   async function fetchCSV(url) {
     const response = await fetch(url, { cache: "no-store" });
-    if (!response.ok) throw new Error("Could not load Google Sheet.");
+
+    if (!response.ok) {
+      throw new Error("Could not load Google Sheet.");
+    }
+
     return parseCSV(await response.text());
   }
 
@@ -901,6 +1154,7 @@ h2 {
 
       const gates = data.filter(item => {
         const category = item.category.trim().toLowerCase();
+
         return category === "gate" ||
           category === "gates" ||
           category.includes("enclave");
@@ -912,18 +1166,25 @@ h2 {
 
     } catch (error) {
       console.error(error);
+
       overallText.textContent = "Status Temporarily Unavailable";
       overallStatus.style.color = "var(--closed)";
+
       activeSection.hidden = true;
       reportedSection.hidden = true;
+
       amenitiesList.innerHTML = "";
       gatesList.innerHTML = "";
+
       errorBox.hidden = false;
     }
   }
 
   loadStatus();
+
 })();
 </script>
+
 </body>
 </html>
+
