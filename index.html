@@ -4,9 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Las Sendas Community Status</title>
-
 <style>
 :root {
   --text: #30332f;
@@ -19,35 +17,28 @@
   --upcoming: #3b7197;
   --repair: #b56835;
   --closed: #a34d48;
+  --reported: #777b77;
 }
-
-* {
-  box-sizing: border-box;
-}
-
+* { box-sizing: border-box; }
 html, body {
   margin: 0;
   padding: 0;
   background: #fff;
 }
-
 body {
   font-family: Avenir, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
   color: var(--text);
 }
-
 #community-status {
   width: 100%;
   max-width: 1180px;
   margin: 0 auto;
   padding: 10px 0 50px;
 }
-
 .status-header {
   max-width: 800px;
   padding-bottom: 34px;
 }
-
 .intro {
   max-width: 760px;
   margin: 0;
@@ -55,25 +46,19 @@ body {
   font-size: 16px;
   line-height: 1.7;
 }
-
 .report-issue {
   margin: 15px 0 0;
   color: var(--muted);
   font-size: 14px;
   line-height: 1.6;
 }
-
 .report-issue a {
   color: var(--green-dark);
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-
-.report-issue a:hover {
-  color: var(--open);
-}
-
+.report-issue a:hover { color: var(--open); }
 .overall-status {
   display: inline-flex;
   align-items: center;
@@ -83,19 +68,16 @@ body {
   font-size: 14px;
   font-weight: 700;
 }
-
 .overall-dot {
   width: 9px;
   height: 9px;
   border-radius: 50%;
   background: currentColor;
 }
-
 .section {
   padding: 30px 0 40px;
   border-top: 1px solid var(--line);
 }
-
 .section-heading {
   display: flex;
   align-items: flex-end;
@@ -103,20 +85,17 @@ body {
   gap: 25px;
   margin-bottom: 20px;
 }
-
 h2 {
   margin: 0;
   font-size: 25px;
   font-weight: 600;
   letter-spacing: -0.3px;
 }
-
 .active-count {
   color: var(--muted);
   font-size: 13px;
   font-weight: 600;
 }
-
 .status {
   display: inline-flex;
   align-items: center;
@@ -125,7 +104,6 @@ h2 {
   font-size: 13px;
   font-weight: 700;
 }
-
 .status::before {
   content: "";
   width: 8px;
@@ -134,23 +112,12 @@ h2 {
   border-radius: 50%;
   background: currentColor;
 }
-
-.status-open {
-  color: var(--open);
-}
-
-.status-repair {
-  color: var(--repair);
-}
-
-.status-closed {
-  color: var(--closed);
-}
-
-.status-unknown {
-  color: #777b77;
-}
-
+.status-open { color: var(--open); }
+.status-upcoming { color: var(--upcoming); }
+.status-repair { color: var(--repair); }
+.status-closed { color: var(--closed); }
+.status-reported { color: var(--reported); }
+.status-unknown { color: #777b77; }
 .active-item {
   display: grid;
   grid-template-columns: minmax(180px, .8fr) minmax(300px, 1.8fr);
@@ -158,22 +125,18 @@ h2 {
   padding: 23px 2px;
   border-top: 1px solid var(--soft-line);
 }
-
 .active-item:last-child {
   border-bottom: 1px solid var(--soft-line);
 }
-
 .active-name {
   margin-bottom: 6px;
   font-size: 16px;
   font-weight: 700;
 }
-
 .active-category {
   color: #858a84;
   font-size: 12px;
 }
-
 .active-update {
   max-width: 680px;
   margin: 10px 0 0;
@@ -181,16 +144,19 @@ h2 {
   font-size: 14px;
   line-height: 1.65;
 }
-
+.reported-intro {
+  margin: -4px 0 20px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
 .status-list {
   width: 100%;
   border-bottom: 1px solid var(--soft-line);
 }
-
 .location-entry {
   border-top: 1px solid var(--soft-line);
 }
-
 .location-toggle {
   display: flex;
   width: 100%;
@@ -206,28 +172,21 @@ h2 {
   text-align: left;
   cursor: pointer;
 }
-
-.location-toggle:hover {
-  background: #f8f9f7;
-}
-
+.location-toggle:hover { background: #f8f9f7; }
 .location-toggle:focus-visible {
   outline: 2px solid var(--green);
   outline-offset: -2px;
 }
-
 .location-name {
   font-size: 15px;
   font-weight: 500;
   line-height: 1.4;
 }
-
 .location-right {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-
 .chevron {
   display: inline-block;
   width: 9px;
@@ -237,46 +196,38 @@ h2 {
   transform: rotate(45deg);
   transition: transform .2s ease;
 }
-
 .location-toggle[aria-expanded="true"] .chevron {
   transform: rotate(225deg);
 }
-
 .history-panel {
   padding: 8px 18px 24px;
   background: #f8f9f7;
 }
-
 .history-title {
   margin: 8px 0 15px;
   font-size: 13px;
   font-weight: 700;
 }
-
 .history-item {
   padding: 13px 0;
   border-top: 1px solid var(--soft-line);
 }
-
 .history-date {
   margin-bottom: 7px;
   color: var(--muted);
   font-size: 12px;
 }
-
 .history-update {
   margin: 8px 0 0;
   color: #555a54;
   font-size: 13px;
   line-height: 1.6;
 }
-
 .history-empty {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.6;
 }
-
 .history-more {
   margin-top: 15px;
   padding: 7px 0;
@@ -289,13 +240,11 @@ h2 {
   text-decoration: underline;
   cursor: pointer;
 }
-
 .search-wrap {
   width: 100%;
   max-width: 440px;
   margin: 2px 0 28px;
 }
-
 #gate-search {
   display: block;
   width: 100%;
@@ -310,23 +259,19 @@ h2 {
   font-family: inherit;
   font-size: 14px;
 }
-
 #gate-search:focus {
   border-bottom-color: var(--green-dark);
 }
-
 .gate-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 55px;
 }
-
 .no-results, .loading {
   padding: 22px 0;
   color: var(--muted);
   font-size: 14px;
 }
-
 .error {
   margin: 0 0 34px;
   padding: 17px 0;
@@ -334,12 +279,10 @@ h2 {
   border-bottom: 1px solid var(--closed);
   font-size: 14px;
 }
-
 .status-footer {
   padding-top: 24px;
   border-top: 1px solid var(--line);
 }
-
 .status-footer p {
   max-width: 720px;
   margin: 0;
@@ -347,44 +290,24 @@ h2 {
   font-size: 12px;
   line-height: 1.6;
 }
-
-[hidden] {
-  display: none !important;
-}
-
+[hidden] { display: none !important; }
 @media (max-width: 800px) {
   .active-item {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-
-  .gate-grid {
-    grid-template-columns: 1fr;
-  }
+  .gate-grid { grid-template-columns: 1fr; }
 }
-
 @media (max-width: 520px) {
-  .intro {
-    font-size: 15px;
-  }
-
-  h2 {
-    font-size: 23px;
-  }
-
+  .intro { font-size: 15px; }
+  h2 { font-size: 23px; }
   .section-heading {
     align-items: flex-start;
     flex-direction: column;
     gap: 6px;
   }
-
-  .location-right {
-    gap: 12px;
-  }
-
-  .status {
-    font-size: 12px;
-  }
+  .location-right { gap: 12px; }
+  .status { font-size: 12px; }
 }
 </style>
 </head>
@@ -400,7 +323,8 @@ h2 {
 
     <p class="report-issue">
       Notice an issue with an amenity or enclave gate?
-      <a href="https://www.mylassendas.org/contact/" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.mylassendas.org/contact/"
+         target="_blank" rel="noopener noreferrer">
         Report it to the Las Sendas Community Association.
       </a>
     </p>
@@ -424,11 +348,21 @@ h2 {
     <div id="active-list"></div>
   </section>
 
+  <section id="reported-section" class="section" hidden>
+    <div class="section-heading">
+      <h2>Reported Issues</h2>
+      <div id="reported-count" class="active-count"></div>
+    </div>
+    <p class="reported-intro">
+      These concerns have been reported to management and are being reviewed.
+    </p>
+    <div id="reported-list"></div>
+  </section>
+
   <section class="section">
     <div class="section-heading">
       <h2>Amenities</h2>
     </div>
-
     <div id="amenities-list" class="status-list">
       <div class="loading">Loading amenities...</div>
     </div>
@@ -438,21 +372,15 @@ h2 {
     <div class="section-heading">
       <h2>Enclave Gates</h2>
     </div>
-
     <div class="search-wrap">
-      <input
-        type="search"
-        id="gate-search"
+      <input type="search" id="gate-search"
         placeholder="Search your enclave..."
         autocomplete="off"
-        aria-label="Search enclave gates"
-      >
+        aria-label="Search enclave gates">
     </div>
-
     <div id="gates-list" class="gate-grid">
       <div class="loading">Loading enclave gates...</div>
     </div>
-
     <div id="no-results" class="no-results" hidden>
       No enclave gates match your search.
     </div>
@@ -480,6 +408,9 @@ h2 {
   const activeSection = document.getElementById("active-section");
   const activeList = document.getElementById("active-list");
   const activeCount = document.getElementById("active-count");
+  const reportedSection = document.getElementById("reported-section");
+  const reportedList = document.getElementById("reported-list");
+  const reportedCount = document.getElementById("reported-count");
   const overallText = document.getElementById("overall-text");
   const overallStatus = document.getElementById("overall-status");
   const searchInput = document.getElementById("gate-search");
@@ -511,7 +442,6 @@ h2 {
         value = "";
       } else if ((char === "\n" || char === "\r") && !quoted) {
         if (char === "\r" && next === "\n") i++;
-
         row.push(value);
         if (row.some(cell => String(cell).trim())) {
           rows.push(row);
@@ -527,7 +457,6 @@ h2 {
     if (row.some(cell => String(cell).trim())) {
       rows.push(row);
     }
-
     return rows;
   }
 
@@ -541,30 +470,29 @@ h2 {
   }
 
   function statusInfo(status) {
-  const clean = String(status || "").trim().toLowerCase();
+    const clean = String(status || "").trim().toLowerCase();
 
-  if (clean === "open") {
-    return { key: "open", label: "Open" };
+    if (clean === "open") {
+      return { key: "open", label: "Open" };
+    }
+    if (clean === "closed") {
+      return { key: "closed", label: "Closed" };
+    }
+    if (clean === "repair in progress") {
+      return { key: "repair", label: "Repair in Progress" };
+    }
+    if (clean === "upcoming maintenance") {
+      return { key: "upcoming", label: "Upcoming Maintenance" };
+    }
+    if (clean === "issue reported") {
+      return { key: "reported", label: "Issue Reported" };
+    }
+
+    return { key: "unknown", label: "Status Unavailable" };
   }
-
-  if (clean === "closed") {
-    return { key: "closed", label: "Closed" };
-  }
-
-  if (clean === "repair in progress") {
-    return { key: "repair", label: "Repair in Progress" };
-  }
-
-  if (clean === "upcoming maintenance") {
-    return { key: "upcoming", label: "Upcoming Maintenance" };
-  }
-
-  return { key: "unknown", label: "Status Unavailable" };
-}
 
   function statusHTML(status) {
     const info = statusInfo(status);
-
     return '<span class="status status-' + info.key + '">' +
       escapeHTML(info.label) + '</span>';
   }
@@ -577,7 +505,6 @@ h2 {
     if (!rows.length) throw new Error("TRACK is empty.");
 
     const headers = rows[0].map(x => String(x).trim().toLowerCase());
-
     const locationIndex = headers.indexOf("location");
     const categoryIndex = headers.indexOf("category");
     const statusIndex = headers.indexOf("status");
@@ -607,12 +534,10 @@ h2 {
     const match = text.match(
       /^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)?$/i
     );
-
     if (!match) return 0;
 
     let hour = Number(match[4]);
     const meridiem = (match[7] || "").toUpperCase();
-
     if (meridiem === "PM" && hour < 12) hour += 12;
     if (meridiem === "AM" && hour === 12) hour = 0;
 
@@ -630,7 +555,6 @@ h2 {
     if (!rows.length) throw new Error("History CSV is empty.");
 
     const headers = rows[0].map(x => String(x).trim().toLowerCase());
-
     const timestampIndex = headers.indexOf("timestamp");
     const locationIndex = headers.indexOf("location");
     const statusIndex = headers.indexOf("status");
@@ -670,22 +594,17 @@ h2 {
         Number(match[1]) - 1,
         Number(match[2])
       );
-
       const dateText = date.toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
         year: "numeric"
       });
-
       return dateText + " at " + match[4] + ":" + match[5] +
         (match[7] ? " " + match[7].toUpperCase() : "");
     }
 
     const date = new Date(text);
-
-    if (Number.isNaN(date.getTime())) {
-      return text;
-    }
+    if (Number.isNaN(date.getTime())) return text;
 
     return date.toLocaleString("en-US", {
       timeZone: "America/Phoenix",
@@ -737,7 +656,8 @@ h2 {
 
   function locationHTML(item) {
     return `
-      <div class="location-entry" data-name="${escapeHTML(normalizeLocation(item.location))}">
+      <div class="location-entry"
+           data-name="${escapeHTML(normalizeLocation(item.location))}">
         <button type="button" class="location-toggle" aria-expanded="false">
           <span class="location-name">${escapeHTML(item.location)}</span>
           <span class="location-right">
@@ -762,18 +682,60 @@ h2 {
     gatesList.innerHTML = items.length
       ? items.map(locationHTML).join("")
       : '<div class="no-results">No enclave gates are listed.</div>';
-
     filterGates();
   }
 
+  function updateItemHTML(item) {
+    const update = item.update
+      ? '<p class="active-update">' + escapeHTML(item.update) + '</p>'
+      : "";
+
+    return `
+      <div class="active-item">
+        <div>
+          <div class="active-name">${escapeHTML(item.location)}</div>
+          <div class="active-category">${escapeHTML(item.category)}</div>
+        </div>
+        <div>
+          ${statusHTML(item.status)}
+          ${update}
+        </div>
+      </div>
+    `;
+  }
+
   function renderActive(items) {
-    const active = items.filter(item =>
-      statusInfo(item.status).key !== "open"
+    const priority = {
+      closed: 1,
+      repair: 2,
+      upcoming: 3
+    };
+
+    const active = items.filter(item => {
+      const key = statusInfo(item.status).key;
+      return key === "closed" ||
+        key === "repair" ||
+        key === "upcoming";
+    }).sort((a, b) =>
+      priority[statusInfo(a.status).key] -
+      priority[statusInfo(b.status).key]
     );
+
+    const reported = items.filter(item =>
+      statusInfo(item.status).key === "reported"
+    );
+
+    reportedSection.hidden = reported.length === 0;
+    reportedCount.textContent = reported.length === 1
+      ? "1 report"
+      : reported.length + " reports";
+    reportedList.innerHTML = reported.map(updateItemHTML).join("");
 
     if (!active.length) {
       activeSection.hidden = true;
-      overallText.textContent = "All Systems Operational";
+      overallText.textContent = reported.length
+        ? "No Active Closures or Repairs"
+        : "All Systems Operational";
       overallStatus.style.color = "var(--green-dark)";
       return;
     }
@@ -787,28 +749,15 @@ h2 {
     activeCount.textContent = wording;
     overallText.textContent = wording;
 
-    overallStatus.style.color = active.some(item =>
-      statusInfo(item.status).key === "closed"
-    ) ? "var(--closed)" : "var(--repair)";
+    if (active.some(item => statusInfo(item.status).key === "closed")) {
+      overallStatus.style.color = "var(--closed)";
+    } else if (active.some(item => statusInfo(item.status).key === "repair")) {
+      overallStatus.style.color = "var(--repair)";
+    } else {
+      overallStatus.style.color = "var(--upcoming)";
+    }
 
-    activeList.innerHTML = active.map(item => {
-      const update = item.update
-        ? '<p class="active-update">' + escapeHTML(item.update) + '</p>'
-        : "";
-
-      return `
-        <div class="active-item">
-          <div>
-            <div class="active-name">${escapeHTML(item.location)}</div>
-            <div class="active-category">${escapeHTML(item.category)}</div>
-          </div>
-          <div>
-            ${statusHTML(item.status)}
-            ${update}
-          </div>
-        </div>
-      `;
-    }).join("");
+    activeList.innerHTML = active.map(updateItemHTML).join("");
   }
 
   function filterGates() {
@@ -852,7 +801,6 @@ h2 {
       });
 
       more.setAttribute("aria-expanded", String(!expanded));
-
       more.textContent = expanded
         ? "View older updates (" + older.length + ")"
         : "Show fewer updates";
@@ -861,11 +809,7 @@ h2 {
 
   async function fetchCSV(url) {
     const response = await fetch(url, { cache: "no-store" });
-
-    if (!response.ok) {
-      throw new Error("Could not load Google Sheet.");
-    }
-
+    if (!response.ok) throw new Error("Could not load Google Sheet.");
     return parseCSV(await response.text());
   }
 
@@ -897,9 +841,12 @@ h2 {
         item.category.toLowerCase().includes("amenity")
       );
 
-      const gates = data.filter(item =>
-        item.category.toLowerCase().includes("enclave")
-      );
+      const gates = data.filter(item => {
+        const category = item.category.trim().toLowerCase();
+        return category === "gate" ||
+          category === "gates" ||
+          category.includes("enclave");
+      });
 
       renderActive(data);
       renderAmenities(amenities);
@@ -907,10 +854,10 @@ h2 {
 
     } catch (error) {
       console.error(error);
-
       overallText.textContent = "Status Temporarily Unavailable";
       overallStatus.style.color = "var(--closed)";
       activeSection.hidden = true;
+      reportedSection.hidden = true;
       amenitiesList.innerHTML = "";
       gatesList.innerHTML = "";
       errorBox.hidden = false;
@@ -920,6 +867,5 @@ h2 {
   loadStatus();
 })();
 </script>
-
 </body>
 </html>
